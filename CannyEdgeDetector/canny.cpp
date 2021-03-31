@@ -88,7 +88,7 @@ Mat canny(Mat src, int min, int max)
 
 int main()
 {
-	Mat src = imread("./Immagini/apples.jpg", 0);
+	Mat src = imread("./Images/apples.jpg", 0);
 
 	gradDir = new float *[src.rows];
 	for (int i = 0; i < src.rows; i++)
