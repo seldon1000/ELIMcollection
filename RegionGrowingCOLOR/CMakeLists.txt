@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 2.8)
-project( regColor )
-find_package( OpenCV REQUIRED )
-add_executable( regColor regColor.cpp )
-target_link_libraries( regColor ${OpenCV_LIBS} )
