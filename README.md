@@ -5,7 +5,7 @@ This is a collection of good C++ implementations of some image processing algori
 This is a simple collection of OpenCV C++ examples found on the net or written by ourselves.
 We hope those examples will help people understanding digital image processing.:v: :v:
 
-:it: *The pdf are in ITALIAN language!* :it:
+:it: *The pdf is in ITALIAN language!* :it:
 
 ## Requirements
 You must install [OpenCV](https://docs.opencv.org/master/d9/df8/tutorial_root.html) in order to compile files.
