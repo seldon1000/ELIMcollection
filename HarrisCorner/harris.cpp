@@ -1,114 +1,81 @@
-/*
- * Harris Corner Detection
-*/
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
 using namespace std;
 using namespace cv;
 
-Mat L_X,L_Y;
-Mat src1;
-/*
- * Funzione per trasformare una immagine "src" in b/n
-*/
-Mat blackwhite(Mat src)
+Mat srcColor, g_x, g_y;
+
+Mat BW(Mat src)
 {
-	Mat output = src.clone();
-	int x,y;
-	
-	for (x=0; x < src.rows; x++)
+	Mat out = src.clone();
+
+	for (int i = 0; i < src.rows; i++)
 	{
-		for (y=0; y < src.cols; y++)
+		for (int j = 0; j < src.cols; j++)
 		{
-			if (src.at<uchar>(x,y)<128)
-				output.at<uchar>(x,y) = 0;
-			else 
-				output.at<uchar>(x,y) = 255;
+			if (src.at<uchar>(i, j) < 128)
+				out.at<uchar>(i, j) = 0;
+			else
+				out.at<uchar>(i, j) = 255;
 		}
 	}
 
-return output;
+	return out;
 }
 
-/*
- * Filtro Roberts con formula
-*/
 void roberts(Mat src)
 {
-	L_X = Mat(src.rows, src.cols, DataType<float>::type);
-	L_Y = L_X.clone();
-	int x,y;
+	g_x = Mat(src.rows, src.cols, CV_32F);
+	g_y = g_x.clone();
 
-	for (x=1; x < src.rows-1; x++)
+	for (int i = 0; i < src.rows - 1; i++)
 	{
-		for (y=1;y<src.cols-1; y++)
+		for (int j = 0; j < src.cols - 1; j++)
 		{
-			L_X.at<float>(x,y) = abs(src.at<uchar>(x+1,y+1) - src.at<uchar>(x,y));
-			L_Y.at<float>(x,y) = abs(src.at<uchar>(x+1,y) - src.at<uchar>(x,y+1));
+			g_x.at<float>(i, j) = src.at<uchar>(i + 1, j + 1) - src.at<uchar>(i, j);
+			g_y.at<float>(i, j) = src.at<uchar>(i + 1, j) - src.at<uchar>(i, j + 1);
 		}
 	}
 }
 
-/*
- * Funzione Harris
-*/
-void harris(Mat src,int treshold)
+void harris(Mat src, int T)
 {
-	float det,trace;
-	int x,y;
-	float C00,C11,C10;
-
-	for (x = 3; x < src.rows-3; x++)
+	for (int i = 3; i < src.rows - 3; i++)
 	{
-		for (y = 3; y<src.cols-3; y++)
+		for (int j = 3; j < src.cols - 3; j++)
 		{
-			C00=C11=C10=0;
-		
-			for(int i=-3; i<=3; i++)
+			float C00 = 0, C11 = 0, C10 = 0, det, traccia;
+
+			for (int x = -3; x < 4; x++)
 			{
-				for(int j=-3; j<=3; j++)
+				for (int y = -3; y < 4; y++)
 				{
-					C00 += pow(L_X.at<float>(x+i,y+j),2);
-					C11 += pow(L_Y.at<float>(x+i,y+j),2);
-					C10 += L_X.at<float>(x+i,y+j) * L_Y.at<float>(x+i,y+j);
+					C00 += pow(g_x.at<float>(i + x, j + y), 2);
+					C11 += pow(g_y.at<float>(i + x, j + y), 2);
+					C10 += g_x.at<float>(i + x, j + y) * g_y.at<float>(i + x, j + y);
 				}
 			}
+
 			det = (C00 * C11) - (C10 * C10);
-			trace = C00 + C11;
-			double k = 0.04; //Fattore K
-			double R = det - k * (pow(trace,2));
-			
-			if (R > treshold * 1e+11) //Moltiplico per 1e+11 perche' ho bisogno di un treshold molto alto
-			{
-				circle(src1, Point(y,x), 5, Scalar(255,255,0), 2, 8, 0);
-			}
+			traccia = C00 + C11;
+			double R = det - 0.04 * pow(traccia, 2);
+
+			if (R > T * 1e+11)
+				circle(srcColor, Point(j, i), 5, Scalar(0, 0, 255), 2, 8, 0);
 		}
 	}
 }
 
-int main(int argc, char **argv){
-	if(argc != 3)
-	{
-		printf("Sintassi non corretta! ./harris [imgPath] [Treshold]");
-		return -1;
-	}
+int main()
+{
+	Mat src = imread("./Images/ape2.jpg", 0);
+	srcColor = imread("./Images/ape2.jpg");
 
-	Mat src = imread(argv[1],0);
-	src1 = imread(argv[1],1);
-	int tresh = atoi(argv[2]); //5
-	
-	namedWindow("Source",WINDOW_AUTOSIZE);
-	imshow("Source",src);
-	waitKey(0);
+	src = BW(src);
+	roberts(src);
+	harris(src, 8);
 
-	Mat bw = blackwhite(src);
-	roberts(bw);
-	harris(bw,tresh);
-	
-	namedWindow("Harris",WINDOW_AUTOSIZE);
-	imshow("Harris",src1);
+	imshow("Harris", srcColor);
 	waitKey(0);
-	
-return 0;
 }
