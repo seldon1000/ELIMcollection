@@ -1,22 +1,14 @@
-# ELIMcollection
-C++ examples of digital image processing.
+# ELIMcollection Fork
+This is a collection of good C++ implementations of some image processing algorithms. This is a fork: the original repository contained errors and useless stuff, so I decided to write better versions of the algorithms that actually work (at least with the images provided). This fork lacks some of the implementations of the original repo. This fork was made for educational purposes: it's been used as a preparation for the Image Processing practicle exam at the University of Naples "Parthenope". Big thanks to the original repo owner.
 
 ## Introduction
 This is a simple collection of OpenCV C++ examples found on the net or written by ourselves.
 We hope those examples will help people understanding digital image processing.:v: :v:
 
-:it: *All the explanations in code and the pdf are in ITALIAN language!* :it:
+:it: *The pdf are in ITALIAN language!* :it:
 
 ## Requirements
 You must install [OpenCV](https://docs.opencv.org/master/d9/df8/tutorial_root.html) in order to compile files.
-
-In each directory there is a *CMakeLists* file, so you have just to compile it.
-
-Open folder in terminal and compile:
-```bash
-cmake .
-make
-```
 
 ## Collection
 There is a *.pdf* file containing some most important arguments of digital image processing.
@@ -39,4 +31,4 @@ Our collection is composed by:
 - Optical Flux (Cap. 8.2)
 
 ## Contributing
-Of course, if you have better examples or just want to help improving the collections, feel free to contact us!
+If you want to contribute, reach the original repository. This fork is just for educational purposes and won't be mantained.
