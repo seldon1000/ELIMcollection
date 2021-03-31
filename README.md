@@ -2,7 +2,7 @@
 This is a collection of good C++ implementations of some image processing algorithms. This is a fork: the original repository contained errors and useless stuff, so I decided to write better versions of the algorithms that actually work (at least with the images provided). This fork lacks some of the implementations of the original repo. This fork was made for educational purposes: it's been used as a preparation for the Image Processing practicle exam at the University of Naples "Parthenope". Big thanks to the original repo owner.
 
 ## Introduction
-This is a simple collection of OpenCV C++ examples found on the net or written by ourselves.
+This is a simple collection of OpenCV C++ examples.
 We hope those examples will help people understanding digital image processing.:v: :v:
 
 :it: *The pdf is in ITALIAN language!* :it:
