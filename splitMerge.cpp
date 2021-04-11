@@ -8,7 +8,6 @@ int T = 50;
 
 struct region
 {
-	bool active;
 	Scalar color;
 	Rect roi;
 	vector<region> childs;
@@ -29,7 +28,6 @@ bool verify(Mat src)
 region split(Mat src, Rect roi)
 {
 	region R;
-	R.active = true;
 	R.roi = roi;
 
 	if (verify(src))
@@ -83,7 +81,7 @@ void merge(Mat src, region &R)
 
 void color(Mat src, region R)
 {
-	if (R.childs.size() < 1 && R.active)
+	if (R.childs.size() < 1)
 		rectangle(src, R.roi, R.color, CV_FILLED);
 
 	for (int i = 0; i < R.childs.size(); i++)
