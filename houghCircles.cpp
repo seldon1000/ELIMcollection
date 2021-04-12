@@ -6,7 +6,7 @@ using namespace cv;
 
 Mat srcColor;
 
-vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
+void houghCircles(Mat src, int min, int max, int T)
 {
 	int size[] = {max - min + 1, src.rows, src.cols};
 	Mat acc = Mat::zeros(3, size, CV_8U);
@@ -31,8 +31,6 @@ vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 		}
 	}
 
-	vector<Vec3f> circles;
-
 	for (int x = 0; x < size[0]; x++)
 	{
 		for (int y = 0; y < size[1]; y++)
@@ -49,8 +47,6 @@ vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 			}
 		}
 	}
-
-	return circles;
 }
 
 int main()
@@ -61,7 +57,7 @@ int main()
 	blur(src, src, Size(7, 7));
 	Canny(src, src, 50, 150, 3);
 
-	vector<Vec3f> circles = houghCircles(src, 4, 10, 80);
+	houghCircles(src, 4, 10, 80);
 
 	imshow("Hough Circles", srcColor);
 	waitKey(0);
