@@ -4,6 +4,8 @@
 using namespace std;
 using namespace cv;
 
+Mat srcColor;
+
 vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 {
 	int size[] = {max - min + 1, src.rows, src.cols};
@@ -38,7 +40,12 @@ vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 			for (int z = 0; z < size[2]; z++)
 			{
 				if (acc.at<uchar>(x, y, z) > T)
-					circles.push_back(Vec3f(x + min, y, z));
+				{
+					Point center(cvRound(z), cvRound(y));
+					int rad = cvRound(x);
+
+					circle(srcColor, center, rad, Scalar(0, 0, 255), 1, 8, 0);
+				}
 			}
 		}
 	}
@@ -48,21 +55,13 @@ vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 
 int main()
 {
-	Mat src = imread("./Immagini/road.jpg", 0);
-	Mat srcColor = imread("./Immagini/road.jpg");
+	Mat src = imread("./Images/road.jpg", 0);
+	srcColor = imread("./Images/road.jpg");
 
 	blur(src, src, Size(7, 7));
 	Canny(src, src, 50, 150, 3);
 
 	vector<Vec3f> circles = houghCircles(src, 4, 10, 80);
-
-	for (int i = 0; i < circles.size(); i++)
-	{
-		Point center(cvRound(circles[i][2]), cvRound(circles[i][1]));
-		int rad = cvRound(circles[i][0]);
-
-		circle(srcColor, center, rad, Scalar(0, 0, 255), 1, 8, 0);
-	}
 
 	imshow("Hough Circles", srcColor);
 	waitKey(0);
