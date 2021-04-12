@@ -42,7 +42,7 @@ vector<Vec3f> houghCircles(Mat src, int min, int max, int T)
 				if (acc.at<uchar>(x, y, z) > T)
 				{
 					Point center(cvRound(z), cvRound(y));
-					int rad = cvRound(x);
+					int rad = cvRound(x + min);
 
 					circle(srcColor, center, rad, Scalar(0, 0, 255), 1, 8, 0);
 				}
