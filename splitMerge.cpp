@@ -8,6 +8,7 @@ int T = 50;
 
 struct region
 {
+	bool active;
 	Scalar color;
 	Rect roi;
 	vector<region> childs;
@@ -54,7 +55,18 @@ region split(Mat src, Rect roi)
 bool regionUnion(Mat src, region r1, region r2)
 {
 	if (r1.childs.size() < 1 && r2.childs.size() < 1)
-		return verify(src(r1.roi | r2.roi));
+	{
+		Rect r12 = r1.roi | r2.roi;
+		
+		if (verify(src(r12)))
+		{
+			r1.active = true;
+			r1.roi = r12;
+			r2.active = false;
+			
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -81,7 +93,7 @@ void merge(Mat src, region &R)
 
 void color(Mat src, region R)
 {
-	if (R.childs.size() < 1)
+	if (R.childs.size() < 1 && R.active)
 		rectangle(src, R.roi, R.color, CV_FILLED);
 
 	for (int i = 0; i < R.childs.size(); i++)
