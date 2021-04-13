@@ -1,7 +1,7 @@
 # ELIMcollection Fork
 This is a collection of good C++ implementations of some image processing algorithms. This is a fork: the original repository contained errors and useless stuff, so I decided to write better versions of the algorithms. This fork lacks some of the implementations of the original repo. This fork was made for educational purposes: it's been used as a preparation for the Image Processing practicle exam at the University of Naples "Parthenope". Big thanks to the original repo owner.
 
-*NOTE: splitMerge.cpp needs further testing for now.
+*NOTE: splitMerge.cpp needs further testing for now.*
 
 ## Introduction
 This is a simple collection of OpenCV C++ examples.
