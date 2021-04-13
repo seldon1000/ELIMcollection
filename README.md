@@ -10,7 +10,7 @@ We hope those examples will help people understanding digital image processing.:
 :it: *The pdf is in ITALIAN language!* :it:
 
 ## Requirements
-You must install [OpenCV](https://docs.opencv.org/master/d9/df8/tutorial_root.html) in order to compile files. The algorithms have been tested on GNU/Linux only.
+You must install [OpenCV](https://docs.opencv.org/master/d9/df8/tutorial_root.html) in order to compile files. The algorithms were tested on GNU/Linux only.
 
 ## Collection
 There is a *.pdf* file containing some most important arguments of digital image processing.
