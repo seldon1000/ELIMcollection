@@ -39,9 +39,9 @@ void kMeans(Mat src)
 
 				src.at<Vec3b>(i, j) = val;
 
-				src.at<Vec3b>(0, center).val[0] = (means.at<Vec3b>(0, center).val[0] + val.val[0]) / 2;
-				src.at<Vec3b>(0, center).val[1] = (means.at<Vec3b>(0, center).val[1] + val.val[1]) / 2;
-				src.at<Vec3b>(0, center).val[2] = (means.at<Vec3b>(0, center).val[2] + val.val[2]) / 2;
+				means.at<Vec3b>(0, center).val[0] = (means.at<Vec3b>(0, center).val[0] + val.val[0]) / 2;
+				means.at<Vec3b>(0, center).val[1] = (means.at<Vec3b>(0, center).val[1] + val.val[1]) / 2;
+				means.at<Vec3b>(0, center).val[2] = (means.at<Vec3b>(0, center).val[2] + val.val[2]) / 2;
 			}
 		}
 	}
