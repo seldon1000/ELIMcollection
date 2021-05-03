@@ -9,7 +9,7 @@ const int K = 5;
 void kMeans(Mat src)
 {
 	int center;
-	float min, dist;
+	float min = 100000, dist;
 	Vec3b val;
 	Mat means(1, K, CV_8UC3);
 
@@ -20,11 +20,7 @@ void kMeans(Mat src)
 	{
 		for (int j = 0; j < src.cols; j++)
 		{
-			min = sqrt(pow(means.at<Vec3b>(0, 0).val[0] - src.at<Vec3b>(i, j).val[0], 2) +
-					   pow(means.at<Vec3b>(0, 0).val[1] - src.at<Vec3b>(i, j).val[1], 2) +
-					   pow(means.at<Vec3b>(0, 0).val[2] - src.at<Vec3b>(i, j).val[2], 2));
-
-			for (int x = 1; x < K; x++)
+			for (int x = 0; x < K; x++)
 			{
 				dist = sqrt(pow(means.at<Vec3b>(0, x).val[0] - src.at<Vec3b>(i, j).val[0], 2) +
 							pow(means.at<Vec3b>(0, x).val[1] - src.at<Vec3b>(i, j).val[1], 2) +
