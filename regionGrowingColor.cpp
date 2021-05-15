@@ -18,7 +18,7 @@ double dist(Vec3b x)
 	return sqrt(pow(distB, 2) + pow(distG, 2) + pow(distR, 2));
 }
 
-void regionGrowing(int row, int col)
+void regionGrowingColor(int row, int col)
 {
 	if (row > 0 && !visited[row - 1][col])
 	{
@@ -87,7 +87,7 @@ int main()
 		int x = rand() % src.rows, y = rand() % src.cols;
 		seed = src.at<Vec3b>(x, y);
 
-		regionGrowing(x, y);
+		regionGrowingColor(x, y);
 	}
 
 	imshow("Region Growing Color", regions);
