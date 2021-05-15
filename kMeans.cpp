@@ -9,7 +9,7 @@ const int K = 5;
 void kMeans(Mat src)
 {
 	int center;
-	float min = 100000, dist;
+	float min, dist;
 	Vec3b val;
 	Mat means(1, K, CV_8UC3);
 
