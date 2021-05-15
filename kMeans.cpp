@@ -20,11 +20,15 @@ void kMeans(Mat src)
 	{
 		for (int j = 0; j < src.cols; j++)
 		{
+			min = sqrt(pow(src.at<Vec3b>(i, j).val[0] - means.at<Vec3b>(0, 0).val[0], 2) +
+					   pow(src.at<Vec3b>(i, j).val[1] - means.at<Vec3b>(0, 0).val[1], 2) +
+					   pow(src.at<Vec3b>(i, j).val[2] - means.at<Vec3b>(0, 0).val[2], 2));
+
 			for (int x = 0; x < K; x++)
 			{
-				dist = sqrt(pow(means.at<Vec3b>(0, x).val[0] - src.at<Vec3b>(i, j).val[0], 2) +
-							pow(means.at<Vec3b>(0, x).val[1] - src.at<Vec3b>(i, j).val[1], 2) +
-							pow(means.at<Vec3b>(0, x).val[2] - src.at<Vec3b>(i, j).val[2], 2));
+				dist = sqrt(pow(src.at<Vec3b>(i, j).val[0] - means.at<Vec3b>(0, x).val[0], 2) +
+							pow(src.at<Vec3b>(i, j).val[1] - means.at<Vec3b>(0, x).val[1], 2) +
+							pow(src.at<Vec3b>(i, j).val[2] - means.at<Vec3b>(0, x).val[2], 2));
 
 				if (dist < min)
 				{
@@ -33,8 +37,7 @@ void kMeans(Mat src)
 					val = means.at<Vec3b>(0, x);
 				}
 			}
-			
-			
+
 			src.at<Vec3b>(i, j) = val;
 
 			means.at<Vec3b>(0, center).val[0] = (means.at<Vec3b>(0, center).val[0] + val.val[0]) / 2;
