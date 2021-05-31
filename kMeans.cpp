@@ -6,6 +6,7 @@ using namespace cv;
 
 const int K = 5;
 
+//needs fix, incomplete
 void kMeans(Mat src)
 {
 	int center;
