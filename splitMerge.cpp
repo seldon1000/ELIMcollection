@@ -54,7 +54,7 @@ region split(Mat src, Rect roi)
 
 bool regionUnion(Mat src, region r1, region r2)
 {
-	if (r1.childs.size() < 1 && r2.childs.size() < 1)
+	if (r1.childs.empty() && r2.childs.empty())
 	{
 		Rect r12 = r1.roi | r2.roi;
 		
@@ -86,14 +86,14 @@ void merge(Mat src, region &R)
 
 	for (int i = 0; i < R.childs.size(); i++)
 	{
-		if (R.childs[i].childs.size() > 0)
+		if (!R.childs[i].childs.empty())
 			merge(src, R.childs[i]);
 	}
 }
 
 void color(Mat src, region R)
 {
-	if (R.childs.size() < 1 && R.active)
+	if (R.childs.empty() && R.active)
 		rectangle(src, R.roi, R.color, CV_FILLED);
 
 	for (int i = 0; i < R.childs.size(); i++)
