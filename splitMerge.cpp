@@ -6,8 +6,9 @@ using namespace cv;
 
 int T = 50;
 
-struct region
+class region
 {
+public:
 	bool active;
 	Scalar color;
 	Rect roi;
