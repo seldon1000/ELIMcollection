@@ -19,11 +19,8 @@ bool verify(Mat src)
 	Scalar mean, s;
 
 	meanStdDev(src, mean, s);
-
-	if (s[0] < 5.8 || src.rows * src.cols < T)
-		return true;
-
-	return false;
+	
+	return s[0] < 5.8 || src.rows * src.cols < T;
 }
 
 region split(Mat src, Rect roi)
@@ -102,12 +99,12 @@ void color(Mat src, region R)
 
 int main()
 {
-	Mat src = imread("./Images/apples.jpg");
+	Mat src = imread("./Images/lena.jpg");
 	region R = split(src, Rect(0, 0, src.rows, src.cols));
 
 	merge(src, R);
 	color(src, R);
 
-	imshow("Split - Merge", src);
+	imshow("Split & Merge", src);
 	waitKey(0);
 }
